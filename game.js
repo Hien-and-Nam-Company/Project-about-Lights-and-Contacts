@@ -85,19 +85,6 @@ function drawSwitch(x, y, status){
         context.fill();
         context.closePath();       
     }
-
-    //Kiểm tra MỖI công tắc khi NHẤN CHUỘT tại vị trí BẤT KÌ trong Canvas
-    canvas.onmousedown = function(mousePosition){
-        switchList.forEach(function(currentSwitch){
-            if(mousePosition.offsetX >= currentSwitch.x
-                && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
-                && mousePosition.offsetY >= currentSwitch.y
-                && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
-                    currentSwitch.status = !currentSwitch.status;
-                    drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
-                } 
-        })          
-    }
 }
 
 //Khởi tạo hàm vẽ TẤT CẢ công tắc trong mảng
@@ -106,6 +93,22 @@ function drawSwitchs(){
         drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
     });
 }
+
+//Khởi tạo hàm kiểm tra MỖI công tắc khi NHẤN CHUỘT tại vị trí BẤT KÌ trong Canvas
+function checkSwitchCliked(){
+    canvas.onmousedown = function(mousePosition){
+        switchList.forEach(function(currentSwitch){
+            if(mousePosition.offsetX >= currentSwitch.x
+                && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
+                && mousePosition.offsetY >= currentSwitch.y
+                && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
+                    currentSwitch.status = !currentSwitch.status;
+                    drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
+            } 
+        })          
+    }
+}
+
 
 //Khởi tạo hàm vẽ TẤT CẢ đối tượng
 function draw(){
@@ -116,4 +119,5 @@ function draw(){
 //Gọi hàm vẽ TẤT CẢ đối tượng
 draw();
 
-
+//Gọi hàm kiểm tra công tắc có được nhấn hay không?
+checkSwitchCliked();

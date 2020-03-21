@@ -95,7 +95,7 @@ function drawSwitchs(){
 }
 
 //Khởi tạo hàm kiểm tra MỖI công tắc khi NHẤN CHUỘT tại vị trí BẤT KÌ trong Canvas
-function checkSwitchCliked(){
+function checkSwitchClicked(){
     canvas.onmousedown = function(mousePosition){
         switchList.forEach(function(currentSwitch){
             if(mousePosition.offsetX >= currentSwitch.x
@@ -120,4 +120,4 @@ function draw(){
 draw();
 
 //Gọi hàm kiểm tra công tắc có được nhấn hay không?
-checkSwitchCliked();
+checkSwitchClicked();

@@ -3,7 +3,7 @@ var context = canvas.getContext('2d');
 
 //Cấu hình cho bóng đèn
 var lightConfig = {
-    colorOff: '#ffff99',
+    colorOff: '#ffffe6',
     colorOn: '#ffff00',
     radius: 25,
 };
@@ -14,8 +14,9 @@ var lightList = [];
     //Thêm thông tin bóng đèn vào mảng (vị trí, 2 công tắc mà nó chịu tác động)
     lightList.push({
         x: 100,
-        y: 65,
-        // + công tắc mà nó chịu tác động (bổ sung sau)
+        y: 65,       
+        switchA: 0,
+        switchB: 1,
     });
 
 //Cấu hình cho công tắc
@@ -43,12 +44,16 @@ var switchList = [];
     });
 
 //Khởi tạo hàm vẽ MỘT bóng đèn
-function drawLight(x, y){
+function drawLight(x, y, switchA, switchB){
     context.beginPath();
     context.arc(x, y, lightConfig.radius, 0, Math.PI*2, false);
     context.lineWidth = 10;
     context.stroke();
-    context.fillStyle = lightConfig.colorOn; //tạm thời để đèn sáng
+    if(switchA == !switchB){
+        context.fillStyle = lightConfig.colorOn;
+    } else{
+        context.fillStyle = lightConfig.colorOff;
+    }
     context.fill();
     context.closePath();
 }
@@ -56,7 +61,9 @@ function drawLight(x, y){
 //Khởi tạo hàm vẽ TẤT CẢ bóng đèn trong mảng
 function drawLights(){
     lightList.forEach(function(currentLight){
-        drawLight(currentLight.x, currentLight.y);
+        drawLight(currentLight.x, currentLight.y, 
+            switchList[currentLight.switchA].status, 
+            switchList[currentLight.switchB].status);
     })
 }
 
@@ -104,11 +111,11 @@ function checkSwitchClicked(){
                 && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
                     currentSwitch.status = !currentSwitch.status;
                     drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
+                    drawLights();
             } 
         })          
     }
 }
-
 
 //Khởi tạo hàm vẽ TẤT CẢ đối tượng
 function draw(){

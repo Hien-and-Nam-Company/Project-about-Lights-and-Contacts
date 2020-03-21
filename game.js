@@ -1,6 +1,26 @@
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
+//Cấu hình cho công cụ Link
+var linkButton = {
+    x: 250,
+    y: 50,
+    width: 100,
+    height: 50,
+    color1: '#e6e6ff',
+    color2: '#0000ff',
+    isLinkFlag: false,
+}
+
+var linkTarget = {
+    color: '#0000ff',
+}
+
+var linkList = {
+    target1: null,
+    target2: null,
+}
+
 //Cấu hình cho bóng đèn
 var lightConfig = {
     colorOff: '#ffffe6',
@@ -43,31 +63,36 @@ var switchConfig = {
 //Tạo mảng để quản lý tất cả các công tắc
 var switchList = [];
 
-    //Thêm thông tin công tắc vào mảng (vị trí, trạng thái)
+    //Thêm thông tin công tắc vào mảng (số thứ tự, vị trí, trạng thái)
     switchList.push({
+        number: 0,
         x: 10,
         y: 10,
-        status: false,
+        isStatus: false,
     });
     switchList.push({
+        number: 1,
         x: 140,
         y: 10,
-        status: true,
+        isStatus: true,
     });
     switchList.push({
+        number: 2,
         x: 10,
         y: 210,
-        status: true,
+        isStatus: true,
     });
     switchList.push({
+        number: 3,
         x: 140,
         y: 265,
-        status: true,
+        isStatus: true,
     });
     switchList.push({
+        number: 4,
         x: 10,
         y: 370,
-        status: true,
+        isStatus: true,
     });
 
 //Khởi tạo hàm vẽ MỘT bóng đèn
@@ -89,24 +114,26 @@ function drawLight(x, y, switchA, switchB){
 function drawLights(){
     lightList.forEach(function(currentLight){
         drawLight(currentLight.x, currentLight.y, 
-            switchList[currentLight.switchA].status, 
-            switchList[currentLight.switchB].status);
+            switchList[currentLight.switchA].isStatus, 
+            switchList[currentLight.switchB].isStatus);
     })
 }
 
 //Khởi tạo hàm vẽ MỘT công tắc
-function drawSwitch(x, y, status){
+function drawSwitch(x, y, isStatus){
     context.beginPath();
-    myRect = context.rect(x, y, switchConfig.width, switchConfig.height);
+    context.rect(x, y, switchConfig.width, switchConfig.height);
     context.lineWidth = 10;
+    context.strokeStyle = 'black';
     context.stroke();
     context.fillStyle = switchConfig.color1;
     context.fill();
     context.closePath();
 
-    if(!status){
+    if(!isStatus){
         context.beginPath();
         context.rect(x, y, switchConfig.width, switchConfig.height/2);
+        context.strokeStyle = 'black';
         context.stroke();
         context.fillStyle = switchConfig.color2;
         context.fill();
@@ -114,6 +141,7 @@ function drawSwitch(x, y, status){
     } else{
         context.beginPath();
         context.rect(x, y + switchConfig.height/2, switchConfig.width, switchConfig.height/2);
+        context.strokeStyle = 'black';
         context.stroke();
         context.fillStyle = switchConfig.color3;
         context.fill();
@@ -124,23 +152,108 @@ function drawSwitch(x, y, status){
 //Khởi tạo hàm vẽ TẤT CẢ công tắc trong mảng
 function drawSwitchs(){
     switchList.forEach(function(currentSwitch){
-        drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
+        drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
     });
 }
 
-//Khởi tạo hàm kiểm tra MỖI công tắc khi NHẤN CHUỘT tại vị trí BẤT KÌ trong Canvas
-function checkSwitchClicked(){
+//Khởi tạo hàm vẽ Link Button
+function drawLinkButton(){
+    context.beginPath();
+    context.rect(linkButton.x, linkButton.y, linkButton.width, linkButton.height);
+    context.lineWidth = 10;
+    context.strokeStyle = 'black';
+    context.stroke();
+    if(!linkButton.isLinkFlag){
+        context.fillStyle = linkButton.color1;
+    } else{
+        context.fillStyle = linkButton.color2;
+    }
+    context.fill();
+    context.closePath();
+
+    context.beginPath();
+    context.font = "30px Comic Sans MS";
+    if(!linkButton.isLinkFlag){
+        context.fillStyle = 'black';
+    } else{
+        context.fillStyle = 'white';
+    }
+    context.fillText("LINK", linkButton.x+12, linkButton.y+35);
+    context.closePath();
+}
+
+function drawLinkTarget(x, y){
+    context.beginPath();
+    context.rect(x, y, switchConfig.width, switchConfig.height);
+    context.lineWidth = 10;
+    context.strokeStyle = linkTarget.color;
+    context.stroke();   
+    context.closePath();
+}
+
+//Khởi tạo hàm kiểm tra click chuột
+function checkMouseClicked(){
     canvas.onmousedown = function(mousePosition){
-        switchList.forEach(function(currentSwitch){
-            if(mousePosition.offsetX >= currentSwitch.x
-                && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
-                && mousePosition.offsetY >= currentSwitch.y
-                && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
-                    currentSwitch.status = !currentSwitch.status;
-                    drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
-                    drawLights();
-            } 
-        })          
+        if(!linkButton.isLinkFlag){
+            switchList.forEach(function(currentSwitch){
+                if(mousePosition.offsetX >= currentSwitch.x
+                    && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
+                    && mousePosition.offsetY >= currentSwitch.y
+                    && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
+                        if(linkList.target1 != null && linkList.target2 != null){
+                            if(linkList.target1 == currentSwitch.number){
+                                currentSwitch.isStatus = !currentSwitch.isStatus;
+                                switchList[linkList.target2].isStatus = !(switchList[linkList.target2].isStatus); 
+                                drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
+                                drawSwitch( switchList[linkList.target2].x,  switchList[linkList.target2].y,  switchList[linkList.target2].isStatus);
+                                linkList.target1 = null;
+                                linkList.target2 = null;
+                            } else if(linkList.target2 == currentSwitch.number){
+                                currentSwitch.isStatus = !currentSwitch.isStatus;
+                                switchList[linkList.target1].isStatus = !(switchList[linkList.target1].isStatus); 
+                                drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
+                                drawSwitch( switchList[linkList.target1].x,  switchList[linkList.target1].y,  switchList[linkList.target1].isStatus);
+                                linkList.target1 = null;
+                                linkList.target2 = null;
+                            }
+                            
+                        } else {
+                            currentSwitch.isStatus = !currentSwitch.isStatus; 
+                            linkList.target1 = null;
+                            linkList.target2 = null;
+                        }                       
+                        drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
+                        //drawSwitchs();
+                        drawLights();
+                }
+            });
+        } else{
+            switchList.forEach(function(currentSwitch){
+                if(mousePosition.offsetX >= currentSwitch.x
+                    && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
+                    && mousePosition.offsetY >= currentSwitch.y
+                    && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){                   
+                        linkList.target2 = linkList.target1;                        
+                        linkList.target1 = currentSwitch.number;
+                        console.log(linkList.target1);
+                        console.log(linkList.target2);
+                        drawSwitchs();
+                        if(linkList.target1!=null){
+                            drawLinkTarget(switchList[linkList.target1].x, switchList[linkList.target1].y);
+                        }
+                        if(linkList.target2!=null){
+                            drawLinkTarget(switchList[linkList.target2].x, switchList[linkList.target2].y);
+                        }
+                } 
+            });
+        }
+        if(mousePosition.offsetX >= linkButton.x
+            && mousePosition.offsetX <= linkButton.x + linkButton.width
+            && mousePosition.offsetY >= linkButton.y
+            && mousePosition.offsetY <= linkButton.y + linkButton.height){
+                linkButton.isLinkFlag = !linkButton.isLinkFlag;
+                drawLinkButton();
+        }            
     }
 }
 
@@ -148,10 +261,14 @@ function checkSwitchClicked(){
 function draw(){
     drawLights();   
     drawSwitchs();
+    drawLinkButton();
+    
 }
 
 //Gọi hàm vẽ TẤT CẢ đối tượng
 draw();
 
-//Gọi hàm kiểm tra công tắc có được nhấn hay không?
-checkSwitchClicked();
+//Gọi hàm kiểm tra click chuột
+checkMouseClicked();
+
+

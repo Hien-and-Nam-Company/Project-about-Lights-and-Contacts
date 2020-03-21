@@ -18,6 +18,18 @@ var lightList = [];
         switchA: 0,
         switchB: 1,
     });
+    lightList.push({
+        x: 100,
+        y: 260,       
+        switchA: 2,
+        switchB: 3,
+    });
+    lightList.push({
+        x: 100,
+        y: 370,       
+        switchA: 3,
+        switchB: 4,
+    });
 
 //Cấu hình cho công tắc
 var switchConfig = {
@@ -40,6 +52,21 @@ var switchList = [];
     switchList.push({
         x: 140,
         y: 10,
+        status: true,
+    });
+    switchList.push({
+        x: 10,
+        y: 210,
+        status: true,
+    });
+    switchList.push({
+        x: 140,
+        y: 265,
+        status: true,
+    });
+    switchList.push({
+        x: 10,
+        y: 370,
         status: true,
     });
 

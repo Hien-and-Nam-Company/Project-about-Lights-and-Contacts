@@ -35,24 +35,24 @@ var lightList = [];
     lightList.push({
         x: 100,
         y: 65,       
-        switchA: 0,
-        switchB: 1,
+        contactA: 0,
+        contactB: 1,
     });
     lightList.push({
         x: 100,
         y: 260,       
-        switchA: 2,
-        switchB: 3,
+        contactA: 2,
+        contactB: 3,
     });
     lightList.push({
         x: 100,
         y: 370,       
-        switchA: 3,
-        switchB: 4,
+        contactA: 3,
+        contactB: 4,
     });
 
 //Cấu hình cho công tắc
-var switchConfig = {
+var contact = {
     color1: '#595959',
     color2: '#ff0000',
     color3: '#00cc00',
@@ -61,47 +61,47 @@ var switchConfig = {
 };
 
 //Tạo mảng để quản lý tất cả các công tắc
-var switchList = [];
+var contactList = [];
 
     //Thêm thông tin công tắc vào mảng (số thứ tự, vị trí, trạng thái)
-    switchList.push({
+    contactList.push({
         number: 0,
         x: 10,
         y: 10,
-        isStatus: false,
+        isOn: false,
     });
-    switchList.push({
+    contactList.push({
         number: 1,
         x: 140,
         y: 10,
-        isStatus: true,
+        isOn: true,
     });
-    switchList.push({
+    contactList.push({
         number: 2,
         x: 10,
         y: 210,
-        isStatus: true,
+        isOn: true,
     });
-    switchList.push({
+    contactList.push({
         number: 3,
         x: 140,
         y: 265,
-        isStatus: true,
+        isOn: true,
     });
-    switchList.push({
+    contactList.push({
         number: 4,
         x: 10,
         y: 370,
-        isStatus: true,
+        isOn: true,
     });
 
 //Khởi tạo hàm vẽ MỘT bóng đèn
-function drawLight(x, y, switchA, switchB){
+function drawLight(x, y, contactA, contactB){
     context.beginPath();
     context.arc(x, y, lightConfig.radius, 0, Math.PI*2, false);
     context.lineWidth = 10;
     context.stroke();
-    if(switchA == !switchB){
+    if(contactA == !contactB){
         context.fillStyle = lightConfig.colorOn;
     } else{
         context.fillStyle = lightConfig.colorOff;
@@ -114,45 +114,45 @@ function drawLight(x, y, switchA, switchB){
 function drawLights(){
     lightList.forEach(function(currentLight){
         drawLight(currentLight.x, currentLight.y, 
-            switchList[currentLight.switchA].isStatus, 
-            switchList[currentLight.switchB].isStatus);
+            contactList[currentLight.contactA].isOn, 
+            contactList[currentLight.contactB].isOn);
     })
 }
 
 //Khởi tạo hàm vẽ MỘT công tắc
-function drawSwitch(x, y, isStatus){
+function drawcontact(x, y, isOn){
     context.beginPath();
-    context.rect(x, y, switchConfig.width, switchConfig.height);
+    context.rect(x, y, contact.width, contact.height);
     context.lineWidth = 10;
     context.strokeStyle = 'black';
     context.stroke();
-    context.fillStyle = switchConfig.color1;
+    context.fillStyle = contact.color1;
     context.fill();
     context.closePath();
 
-    if(!isStatus){
+    if(!isOn){
         context.beginPath();
-        context.rect(x, y, switchConfig.width, switchConfig.height/2);
+        context.rect(x, y, contact.width, contact.height/2);
         context.strokeStyle = 'black';
         context.stroke();
-        context.fillStyle = switchConfig.color2;
+        context.fillStyle = contact.color2;
         context.fill();
         context.closePath();
     } else{
         context.beginPath();
-        context.rect(x, y + switchConfig.height/2, switchConfig.width, switchConfig.height/2);
+        context.rect(x, y + contact.height/2, contact.width, contact.height/2);
         context.strokeStyle = 'black';
         context.stroke();
-        context.fillStyle = switchConfig.color3;
+        context.fillStyle = contact.color3;
         context.fill();
         context.closePath();       
     }
 }
 
 //Khởi tạo hàm vẽ TẤT CẢ công tắc trong mảng
-function drawSwitchs(){
-    switchList.forEach(function(currentSwitch){
-        drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
+function drawcontacts(){
+    contactList.forEach(function(currentcontact){
+        drawcontact(currentcontact.x, currentcontact.y, currentcontact.isOn);
     });
 }
 
@@ -184,7 +184,7 @@ function drawLinkButton(){
 
 function drawLinkTarget(x, y){
     context.beginPath();
-    context.rect(x, y, switchConfig.width, switchConfig.height);
+    context.rect(x, y, contact.width, contact.height);
     context.lineWidth = 10;
     context.strokeStyle = linkTarget.color;
     context.stroke();   
@@ -195,54 +195,54 @@ function drawLinkTarget(x, y){
 function checkMouseClicked(){
     canvas.onmousedown = function(mousePosition){
         if(!linkButton.isLinkFlag){
-            switchList.forEach(function(currentSwitch){
-                if(mousePosition.offsetX >= currentSwitch.x
-                    && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
-                    && mousePosition.offsetY >= currentSwitch.y
-                    && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
+            contactList.forEach(function(currentcontact){
+                if(mousePosition.offsetX >= currentcontact.x
+                    && mousePosition.offsetX <= currentcontact.x + contact.width
+                    && mousePosition.offsetY >= currentcontact.y
+                    && mousePosition.offsetY <= currentcontact.y + contact.height){
                         if(linkList.target1 != null && linkList.target2 != null){
-                            if(linkList.target1 == currentSwitch.number){
-                                currentSwitch.isStatus = !currentSwitch.isStatus;
-                                switchList[linkList.target2].isStatus = !(switchList[linkList.target2].isStatus); 
-                                drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
-                                drawSwitch( switchList[linkList.target2].x,  switchList[linkList.target2].y,  switchList[linkList.target2].isStatus);
+                            if(linkList.target1 == currentcontact.number){
+                                currentcontact.isOn = !currentcontact.isOn;
+                                contactList[linkList.target2].isOn = !(contactList[linkList.target2].isOn); 
+                                drawcontact(currentcontact.x, currentcontact.y, currentcontact.isOn);
+                                drawcontact( contactList[linkList.target2].x,  contactList[linkList.target2].y,  contactList[linkList.target2].isOn);
                                 linkList.target1 = null;
                                 linkList.target2 = null;
-                            } else if(linkList.target2 == currentSwitch.number){
-                                currentSwitch.isStatus = !currentSwitch.isStatus;
-                                switchList[linkList.target1].isStatus = !(switchList[linkList.target1].isStatus); 
-                                drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
-                                drawSwitch( switchList[linkList.target1].x,  switchList[linkList.target1].y,  switchList[linkList.target1].isStatus);
+                            } else if(linkList.target2 == currentcontact.number){
+                                currentcontact.isOn = !currentcontact.isOn;
+                                contactList[linkList.target1].isOn = !(contactList[linkList.target1].isOn); 
+                                drawcontact(currentcontact.x, currentcontact.y, currentcontact.isOn);
+                                drawcontact( contactList[linkList.target1].x,  contactList[linkList.target1].y,  contactList[linkList.target1].isOn);
                                 linkList.target1 = null;
                                 linkList.target2 = null;
                             }
                             
                         } else {
-                            currentSwitch.isStatus = !currentSwitch.isStatus; 
+                            currentcontact.isOn = !currentcontact.isOn; 
                             linkList.target1 = null;
                             linkList.target2 = null;
                         }                       
-                        drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.isStatus);
-                        //drawSwitchs();
+                        drawcontact(currentcontact.x, currentcontact.y, currentcontact.isOn);
+                        //drawcontacts();
                         drawLights();
                 }
             });
         } else{
-            switchList.forEach(function(currentSwitch){
-                if(mousePosition.offsetX >= currentSwitch.x
-                    && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
-                    && mousePosition.offsetY >= currentSwitch.y
-                    && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){                   
+            contactList.forEach(function(currentcontact){
+                if(mousePosition.offsetX >= currentcontact.x
+                    && mousePosition.offsetX <= currentcontact.x + contact.width
+                    && mousePosition.offsetY >= currentcontact.y
+                    && mousePosition.offsetY <= currentcontact.y + contact.height){                   
                         linkList.target2 = linkList.target1;                        
-                        linkList.target1 = currentSwitch.number;
+                        linkList.target1 = currentcontact.number;
                         console.log(linkList.target1);
                         console.log(linkList.target2);
-                        drawSwitchs();
+                        drawcontacts();
                         if(linkList.target1!=null){
-                            drawLinkTarget(switchList[linkList.target1].x, switchList[linkList.target1].y);
+                            drawLinkTarget(contactList[linkList.target1].x, contactList[linkList.target1].y);
                         }
                         if(linkList.target2!=null){
-                            drawLinkTarget(switchList[linkList.target2].x, switchList[linkList.target2].y);
+                            drawLinkTarget(contactList[linkList.target2].x, contactList[linkList.target2].y);
                         }
                 } 
             });
@@ -260,7 +260,7 @@ function checkMouseClicked(){
 //Khởi tạo hàm vẽ TẤT CẢ đối tượng
 function draw(){
     drawLights();   
-    drawSwitchs();
+    drawcontacts();
     drawLinkButton();
     
 }

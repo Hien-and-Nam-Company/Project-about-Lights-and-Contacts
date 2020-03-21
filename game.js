@@ -15,68 +15,68 @@ var lightList = [];
     lightList.push({
         x: 100,
         y: 65,       
-        switchA: 0,
-        switchB: 1,
+        contactA: 0,
+        contactB: 1,
     });
     lightList.push({
         x: 100,
         y: 260,       
-        switchA: 2,
-        switchB: 3,
+        contactA: 2,
+        contactB: 3,
     });
     lightList.push({
         x: 100,
         y: 370,       
-        switchA: 3,
-        switchB: 4,
+        contactA: 3,
+        contactB: 4,
     });
 
 //Cấu hình cho công tắc
-var switchConfig = {
-    color1: '#595959',
-    color2: '#ff0000',
+var contact = {
+    colorOn: '#595959',
+    colorOff: '#ff0000',
     color3: '#00cc00',
     height: 100,
     width: 50,
 };
 
 //Tạo mảng để quản lý tất cả các công tắc
-var switchList = [];
+var contactList = [];
 
     //Thêm thông tin công tắc vào mảng (vị trí, trạng thái)
-    switchList.push({
+    contactList.push({
         x: 10,
         y: 10,
-        status: false,
+        isOn: false,
     });
-    switchList.push({
+    contactList.push({
         x: 140,
         y: 10,
-        status: true,
+        isOn: true,
     });
-    switchList.push({
+    contactList.push({
         x: 10,
         y: 210,
-        status: true,
+        isOn: true,
     });
-    switchList.push({
+    contactList.push({
         x: 140,
         y: 265,
-        status: true,
+        isOn: true,
     });
-    switchList.push({
+    contactList.push({
         x: 10,
         y: 370,
-        status: true,
+        isOn: true,
     });
 
 //Khởi tạo hàm vẽ MỘT bóng đèn
-function drawLight(x, y, switchA, switchB){
+function drawLight(x, y, contactA, contactB){
     context.beginPath();
     context.arc(x, y, lightConfig.radius, 0, Math.PI*2, false);
     context.lineWidth = 10;
     context.stroke();
-    if(switchA == !switchB){
+    if(contactA == !contactB){
         context.fillStyle = lightConfig.colorOn;
     } else{
         context.fillStyle = lightConfig.colorOff;
@@ -89,55 +89,55 @@ function drawLight(x, y, switchA, switchB){
 function drawLights(){
     lightList.forEach(function(currentLight){
         drawLight(currentLight.x, currentLight.y, 
-            switchList[currentLight.switchA].status, 
-            switchList[currentLight.switchB].status);
+            contactList[currentLight.contactA].isOn, 
+            contactList[currentLight.contactB].isOn);
     })
 }
 
 //Khởi tạo hàm vẽ MỘT công tắc
-function drawSwitch(x, y, status){
+function drawcontact(x, y, isOn){
     context.beginPath();
-    myRect = context.rect(x, y, switchConfig.width, switchConfig.height);
+    myRect = context.rect(x, y, contact.width, contact.height);
     context.lineWidth = 10;
     context.stroke();
-    context.fillStyle = switchConfig.color1;
+    context.fillStyle = contact.colorOn;
     context.fill();
     context.closePath();
 
-    if(!status){
+    if(!isOn){
         context.beginPath();
-        context.rect(x, y, switchConfig.width, switchConfig.height/2);
+        context.rect(x, y, contact.width, contact.height/2);
         context.stroke();
-        context.fillStyle = switchConfig.color2;
+        context.fillStyle = contact.colorOff;
         context.fill();
         context.closePath();
     } else{
         context.beginPath();
-        context.rect(x, y + switchConfig.height/2, switchConfig.width, switchConfig.height/2);
+        context.rect(x, y + contact.height/2, contact.width, contact.height/2);
         context.stroke();
-        context.fillStyle = switchConfig.color3;
+        context.fillStyle = contact.color3;
         context.fill();
         context.closePath();       
     }
 }
 
 //Khởi tạo hàm vẽ TẤT CẢ công tắc trong mảng
-function drawSwitchs(){
-    switchList.forEach(function(currentSwitch){
-        drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
+function drawcontacts(){
+    contactList.forEach(function(currentcontact){
+        drawcontact(currentcontact.x, currentcontact.y, currentcontact.isOn);
     });
 }
 
 //Khởi tạo hàm kiểm tra MỖI công tắc khi NHẤN CHUỘT tại vị trí BẤT KÌ trong Canvas
-function checkSwitchClicked(){
+function checkcontactClicked(){
     canvas.onmousedown = function(mousePosition){
-        switchList.forEach(function(currentSwitch){
-            if(mousePosition.offsetX >= currentSwitch.x
-                && mousePosition.offsetX <= currentSwitch.x + switchConfig.width
-                && mousePosition.offsetY >= currentSwitch.y
-                && mousePosition.offsetY <= currentSwitch.y + switchConfig.height){
-                    currentSwitch.status = !currentSwitch.status;
-                    drawSwitch(currentSwitch.x, currentSwitch.y, currentSwitch.status);
+        contactList.forEach(function(currentcontact){
+            if(mousePosition.offsetX >= currentcontact.x
+                && mousePosition.offsetX <= currentcontact.x + contact.width
+                && mousePosition.offsetY >= currentcontact.y
+                && mousePosition.offsetY <= currentcontact.y + contact.height){
+                    currentcontact.isOn = !currentcontact.isOn;
+                    drawcontact(currentcontact.x, currentcontact.y, currentcontact.isOn);
                     drawLights();
             } 
         })          
@@ -147,11 +147,11 @@ function checkSwitchClicked(){
 //Khởi tạo hàm vẽ TẤT CẢ đối tượng
 function draw(){
     drawLights();   
-    drawSwitchs();
+    drawcontacts();
 }
 
 //Gọi hàm vẽ TẤT CẢ đối tượng
 draw();
 
 //Gọi hàm kiểm tra công tắc có được nhấn hay không?
-checkSwitchClicked();
+checkcontactClicked();

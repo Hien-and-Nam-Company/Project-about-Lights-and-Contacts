@@ -1,7 +1,8 @@
 class Contact {
-    constructor(x, y, status) {
+    constructor(x, y, status, number) {
         this.x = x;
         this.y = y;
+        this.number = number;
         this.status = status;
         this.color1 = '#595959';
         this.color2 = '#ff0000';
@@ -37,5 +38,13 @@ class Contact {
             context.fill();
             context.closePath();       
         }
+    }
+
+    clicked() {
+        if(mouseX >= this.x && mouseX <= this.x + this.width
+            && mouseY >= this.y && mouseY <= this.y + this.height){
+                contactList[this.number].status = !contactList[this.number].status;
+                contactList[this.number].draw();
+            }
     }
 }

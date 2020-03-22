@@ -23,9 +23,9 @@ function drawLights(){
     light3 = new Light(100, 370, contact4, contact5);
 
     //Vẽ 3 bóng đèn
-    light1.draw(light1.firstContact.isOn, light1.secondContact.isOn);
-    light2.draw(light2.firstContact.isOn, light2.secondContact.isOn);
-    light3.draw(light3.firstContact.isOn, light3.secondContact.isOn);
+    light1.draw(light1.firstContact.status, light1.secondContact.status);
+    light2.draw(light2.firstContact.status, light2.secondContact.status);
+    light3.draw(light3.firstContact.status, light3.secondContact.status);
 }
 
 //Khởi tạo hàm vẽ TẤT CẢ items

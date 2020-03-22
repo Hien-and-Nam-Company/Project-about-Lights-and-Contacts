@@ -1,8 +1,8 @@
 class Contact {
-    constructor(x, y, isOn) {
+    constructor(x, y, status) {
         this.x = x;
         this.y = y;
-        this.isOn = isOn;
+        this.status = status;
         this.color1 = '#595959';
         this.color2 = '#ff0000';
         this.color3 = '#00cc00';
@@ -20,7 +20,7 @@ class Contact {
         context.fill();
         context.closePath();
 
-        if(!this.isOn){
+        if(!this.status){
             context.beginPath();
             context.rect(this.x, this.y, this.width, this.height/2);
             context.strokeStyle = 'black';

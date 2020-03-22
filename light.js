@@ -10,12 +10,12 @@ class Light {
         this.radius = 25;
     }
     
-    draw(isFirstContactOn, isSecondContactOn) {
+    draw(firstContactStatus, secondContactStatus) {
         context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
         context.lineWidth = 10;
         context.stroke();
-        if((isFirstContactOn && !isSecondContactOn) || (!isFirstContactOn && isSecondContactOn)){
+        if(firstContactStatus != secondContactStatus){
             context.fillStyle = this.colorOn;
         } else{
             context.fillStyle = this.colorOff;

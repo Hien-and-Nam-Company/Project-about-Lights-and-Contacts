@@ -1,12 +1,12 @@
 class Contact {
-    constructor(x, y, status, number) {
+    constructor(x, y, status) {
         this.x = x;
         this.y = y;
-        this.number = number;
         this.status = status;
         this.color1 = '#595959';
         this.color2 = '#ff0000';
         this.color3 = '#00cc00';
+        this.strokeColor = '#000000';
         this.height = 100;
         this.width = 50;
     }
@@ -15,7 +15,7 @@ class Contact {
         context.beginPath();
         context.rect(this.x, this.y, this.width, this.height);
         context.lineWidth = 10;
-        context.strokeStyle = 'black';
+        context.strokeStyle = this.strokeColor; 
         context.stroke();
         context.fillStyle = this.color1;
         context.fill();
@@ -24,7 +24,7 @@ class Contact {
         if(!this.status){
             context.beginPath();
             context.rect(this.x, this.y, this.width, this.height/2);
-            context.strokeStyle = 'black';
+            context.strokeStyle = this.strokeColor; 
             context.stroke();
             context.fillStyle = this.color2;
             context.fill();
@@ -32,7 +32,7 @@ class Contact {
         } else{
             context.beginPath();
             context.rect(this.x, this.y + this.height/2, this.width, this.height/2);
-            context.strokeStyle = 'black';
+            context.strokeStyle = this.strokeColor; 
             context.stroke();
             context.fillStyle = this.color3;
             context.fill();
@@ -43,8 +43,53 @@ class Contact {
     clicked() {
         if(mouseX >= this.x && mouseX <= this.x + this.width
             && mouseY >= this.y && mouseY <= this.y + this.height){
-                contactList[this.number].status = !contactList[this.number].status;
-                contactList[this.number].draw();
-            }
+                if(this == linkTarget[0]){
+                    this.status = !this.status;
+                    this.draw();
+                    linkTarget[1].status = !linkTarget[1].status;
+                    linkTarget[1].draw();
+                } else if(this == linkTarget[1]){
+                    this.status = !this.status;
+                    this.draw();
+                    linkTarget[0].status = !linkTarget[0].status;
+                    linkTarget[0].draw();
+                } else{
+                    this.status = !this.status;
+                    this.draw();
+                }
+                
+        }
+    }
+
+    clickedLinkTarget() {
+        if(mouseX >= this.x && mouseX <= this.x + this.width
+            && mouseY >= this.y && mouseY <= this.y + this.height){   
+
+                if(linkTarget[0] == this){
+                    linkTarget[0] = null;
+                    linkTarget[1] = null;
+                    drawContacts();
+                }
+
+                linkTarget[0] = linkTarget[1];
+                linkTarget[1] = this;
+                this.strokeColor = '#0000ff';
+                this.draw(); 
+                
+
+                if(linkTarget[0] != null){
+                    drawContacts();
+                    linkTarget[0].strokeColor = '#0000ff';                    
+                    linkTarget[0].draw();
+                    linkTarget[1].strokeColor = '#0000ff';
+                    linkTarget[1].draw(); 
+                }     
+
+                if(linkTarget[0] == linkTarget[1] && linkTarget[1] == this){
+                    linkTarget[0] = null;
+                    linkTarget[1] = null;
+                    drawContacts();
+                }
+        }
     }
 }

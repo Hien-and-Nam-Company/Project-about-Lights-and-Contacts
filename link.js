@@ -46,7 +46,7 @@ class Link {
 
                 //Trường hợp người chơi chỉ chọn 1 Target --> không thực hiện Link
                 if(!isLinkFlag){
-                    if(linkTarget[0] == null || linkTarget[1 == null]){
+                    if(linkTarget[0] == null || linkTarget[1] == null){
                         linkTarget[0] = null;
                         linkTarget[1] = null;
                         drawContacts();

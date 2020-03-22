@@ -44,15 +44,19 @@ class Contact {
         if(mouseX >= this.x && mouseX <= this.x + this.width
             && mouseY >= this.y && mouseY <= this.y + this.height){
                 if(this == linkTarget[0]){
-                    this.status = !this.status;
-                    this.draw();
+                    this.status = !this.status;                    
                     linkTarget[1].status = !linkTarget[1].status;
-                    linkTarget[1].draw();
+                    resetLinkTarget();
+                    drawContacts();
+                    // this.draw();
+                    // linkTarget[1].draw();
                 } else if(this == linkTarget[1]){
                     this.status = !this.status;
-                    this.draw();
+                    //this.draw();
                     linkTarget[0].status = !linkTarget[0].status;
-                    linkTarget[0].draw();
+                    resetLinkTarget();
+                    drawContacts();
+                    //linkTarget[0].draw();
                 } else{
                     this.status = !this.status;
                     this.draw();

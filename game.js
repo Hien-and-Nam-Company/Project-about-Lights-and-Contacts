@@ -23,14 +23,15 @@ function drawLights(){
     light3 = new Light(100, 370, contact4, contact5);
 
     //Vẽ 3 bóng đèn
-
-
+    light1.draw(light1.contactA.isOn, light1.contactB.isOn);
+    light2.draw(light2.contactA.isOn, light2.contactB.isOn);
+    light3.draw(light3.contactA.isOn, light3.contactB.isOn);
 }
 
 //Khởi tạo hàm vẽ TẤT CẢ items
 function draw(){
-    // drawLights();   
     drawContacts();
+    drawLights();   
     // drawLinkButton();
     
 }

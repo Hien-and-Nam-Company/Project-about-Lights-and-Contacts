@@ -18,29 +18,6 @@ var linkList = {
     target2: null,
 }
 
-//Khởi tạo hàm vẽ MỘT bóng đèn
-function drawLight(x, y, contactA, contactB){
-    
-}
-
-//Khởi tạo hàm vẽ TẤT CẢ bóng đèn trong mảng
-function drawLights(){
-    lightList.forEach(function(currentLight){
-        drawLight(currentLight.x, currentLight.y, 
-            contactList[currentLight.contactA].isOn, 
-            contactList[currentLight.contactB].isOn);
-    })
-}
-
-
-//Khởi tạo hàm vẽ TẤT CẢ công tắc trong mảng
-function drawContacts(){
-
-    contactList.forEach(function(currentcontact){
-        drawContact(currentcontact.x, currentcontact.y, currentcontact.isOn);
-    });
-}
-
 //Khởi tạo hàm vẽ Link Button
 function drawLinkButton(){
     context.beginPath();
@@ -141,19 +118,3 @@ function checkMouseClicked(){
         }            
     }
 }
-
-//Khởi tạo hàm vẽ TẤT CẢ items
-function draw(){
-    drawLights();   
-    drawContacts();
-    drawLinkButton();
-    
-}
-
-//Gọi hàm vẽ TẤT CẢ đối tượng
-draw();
-
-//Gọi hàm kiểm tra click chuột
-checkMouseClicked();
-
-

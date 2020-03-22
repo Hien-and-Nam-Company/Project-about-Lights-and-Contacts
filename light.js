@@ -10,15 +10,15 @@ class Light {
         this.radius = 25;
     }
     
-    draw() {
+    draw(isContactAOn, isContactBOn) {
         context.beginPath();
-        context.arc(x, y, lightConfig.radius, 0, Math.PI*2, false);
+        context.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
         context.lineWidth = 10;
         context.stroke();
-        if(contactA == !contactB){
-            context.fillStyle = lightConfig.colorOn;
+        if(isContactAOn == !isContactBOn){
+            context.fillStyle = this.colorOn;
         } else{
-            context.fillStyle = lightConfig.colorOff;
+            context.fillStyle = this.colorOff;
         }
         context.fill();
         context.closePath();

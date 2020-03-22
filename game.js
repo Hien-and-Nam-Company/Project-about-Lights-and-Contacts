@@ -34,6 +34,9 @@ function drawLights(){
 var isLinkFlag = false;
 link = new Link(250, 50, false);
 var linkTarget = [null, null];
+function resetLinkTarget(){
+    linkTarget = [null, null];
+}
 
 //Vẽ đối tượng Link
 function drawLinkButton(){
@@ -53,11 +56,6 @@ function mousePressed(){
             })
             drawLights();
 
-            if(linkTarget[0] == null || linkTarget[1 == null]){
-                linkTarget[0] = null;
-                linkTarget[1] = null;
-                drawContacts();
-            }
         } else{
             contactList.forEach(function(currentContact){
                 currentContact.clickedLinkTarget();

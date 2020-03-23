@@ -10,7 +10,7 @@ contactList[3] = new Contact(140, 265, true);
 contactList[4] = new Contact(10, 370, true);
 
 //Vẽ TẤT CẢ công tắc
-function drawContacts() {
+function drawAllContacts() {
     contactList.forEach(function (currentContact) {
         currentContact.strokeColor = '#000000';
         currentContact.draw();
@@ -66,7 +66,7 @@ function mousePressed() {
 }
 
 //Vẽ TẤT CẢ đối tượng
-drawContacts();
+drawAllContacts();
 drawLights();
 drawLinkButton();
 

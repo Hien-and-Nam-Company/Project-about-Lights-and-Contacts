@@ -11,6 +11,14 @@ class Contact {
         this.width = 50;
     }
 
+    isPointed() {
+        if (mouseX >= this.x && mouseX <= this.x + this.width
+            && mouseY >= this.y && mouseY <= this.y + this.height) {
+            return true;
+        }
+        return false;
+    }
+
     draw() {
         context.beginPath();
         context.rect(this.x, this.y, this.width, this.height);
@@ -46,7 +54,7 @@ class Contact {
                 this.status = !this.status;
                 linkTarget[1].status = !linkTarget[1].status;
                 resetLinkTarget();
-                drawContacts();
+                drawAllContacts();
                 // this.draw();
                 // linkTarget[1].draw();
             } else if (this == linkTarget[1]) {
@@ -54,7 +62,7 @@ class Contact {
                 //this.draw();
                 linkTarget[0].status = !linkTarget[0].status;
                 resetLinkTarget();
-                drawContacts();
+                drawAllContacts();
                 //linkTarget[0].draw();
             } else {
                 this.status = !this.status;
@@ -64,20 +72,12 @@ class Contact {
         }
     }
 
-    isPointed() {
-        if (mouseX >= this.x && mouseX <= this.x + this.width
-            && mouseY >= this.y && mouseY <= this.y + this.height) {
-            return true;
-        }
-        return false;
-    }
-
     clickedLinkTarget() {
         if (this.isPointed()) {
             if (linkTarget[0] == this) {
                 linkTarget[0] = null;
                 linkTarget[1] = null;
-                drawContacts();
+                drawAllContacts();
             }
 
             linkTarget[0] = linkTarget[1];
@@ -87,7 +87,7 @@ class Contact {
 
 
             if (linkTarget[0] != null) {
-                drawContacts();
+                drawAllContacts();
                 linkTarget[0].strokeColor = '#0000ff';
                 linkTarget[0].draw();
                 linkTarget[1].strokeColor = '#0000ff';
@@ -97,7 +97,7 @@ class Contact {
             if (linkTarget[0] == linkTarget[1] && linkTarget[1] == this) {
                 linkTarget[0] = null;
                 linkTarget[1] = null;
-                drawContacts();
+                drawAllContacts();
             }
         }
     }

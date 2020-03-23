@@ -24,7 +24,7 @@ lightList[1] = new Light(100, 260, contactList[2], contactList[3]);
 lightList[2] = new Light(100, 370, contactList[3], contactList[4]);
 
 //Vẽ TẤT CẢ bóng đèn
-function drawLights() {
+function drawAllLights() {
     lightList.forEach(function (currentLight) {
         currentLight.draw();
     })
@@ -32,7 +32,7 @@ function drawLights() {
 
 //Tạo đối tượng Link
 var isLinkFlag = false;
-link = new Link(250, 50, false);
+//link = new Link(250, 50, false);
 var linkTarget = [null, null];
 function resetLinkTarget() {
     linkTarget = [null, null];
@@ -54,20 +54,18 @@ function mousePressed() {
             contactList.forEach(function (currentContact) {
                 currentContact.clicked();
             })
-            drawLights();
+            drawAllLights();
 
         } else {
             contactList.forEach(function (currentContact) {
                 currentContact.clickedLinkTarget();
             })
         }
-        link.clicked();
     }
 }
 
 //Vẽ TẤT CẢ đối tượng
 drawAllContacts();
-drawLights();
-drawLinkButton();
+drawAllLights();
 
 mousePressed();

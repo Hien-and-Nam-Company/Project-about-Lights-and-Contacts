@@ -5,14 +5,47 @@
 	<title>Hien and Nam Project</title>
 </head>
 <style>
-	canvas {
+	.canvas {
 		background-color: aliceblue;
 		border: 2px solid black;
+		position: absolute; 
+		top: 0px; 
+		left: 0px;
+	}
+
+	.button {
+		display: inline-block;
+		padding: auto;
+		font-size: 24px;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #3333ff;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #999;
+		position: absolute;
+		width: 120px;
+		height: 50px;
+	}
+
+	.button:hover {
+		background-color: #0000cc;
+	}
+
+	.button:active {
+		background-color: #000080;
+		box-shadow: 0 5px #666;
+		transform: translateY(4px);
 	}
 </style>
 
-<body>
-	<canvas id="game" width="400" height="600"></canvas>
+<body>	
+	<canvas id="game" class="canvas" width="400" height="600"></canvas>
+	<button id="button" class="button" style="top:150px; left:250px;" onclick="myFunction()">LINK</button>
+	<button id="button2" class="button" style="top:250px; left:250px; visibility:hidden;" onclick="myFunction2()">UNLINK</button>
 	<script src="contact.js"></script>
 	<script src="light.js"></script>
 	<script src="link.js"></script>

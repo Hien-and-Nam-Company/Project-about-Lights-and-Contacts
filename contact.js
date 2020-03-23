@@ -58,11 +58,11 @@ class Contact {
                 // this.draw();
                 // linkTarget[1].draw();
             } else if (this == linkTarget[1]) {
-                this.status = !this.status;
-                //this.draw();
+                this.status = !this.status;              
                 linkTarget[0].status = !linkTarget[0].status;
                 resetLinkTarget();
                 drawAllContacts();
+                //this.draw();
                 //linkTarget[0].draw();
             } else {
                 this.status = !this.status;
@@ -93,12 +93,16 @@ class Contact {
                 linkTarget[1].strokeColor = '#0000ff';
                 linkTarget[1].draw();
             }
+        }
 
-            if (linkTarget[0] == linkTarget[1] && linkTarget[1] == this) {
-                linkTarget[0] = null;
-                linkTarget[1] = null;
-                drawAllContacts();
-            }
+        if(linkTarget[0] == null && linkTarget[1] == null){
+            document.getElementById('button').style.visibility = 'visible';
+        } else if(linkTarget[0] == null || linkTarget[1] == null){
+            document.getElementById('button').style.visibility = 'hidden';
+        } else if(linkTarget[0] == linkTarget[1]){
+            document.getElementById('button').style.visibility = 'hidden';
+        } else{
+            document.getElementById('button').style.visibility = 'visible';
         }
     }
 }

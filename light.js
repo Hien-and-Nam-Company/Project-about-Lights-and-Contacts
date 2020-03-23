@@ -1,6 +1,5 @@
 class Light {
     constructor(x, y, firstContact, secondContact) {
-        //Các thuộc tính cho bóng đèn
         this.x = x;
         this.y = y;
         this.firstContact = firstContact;
@@ -10,16 +9,16 @@ class Light {
         this.strokeColor = '#000000';
         this.radius = 25;
     }
-    
+
     draw() {
         context.beginPath();
-        context.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         context.lineWidth = 10;
         context.strokeStyle = this.strokeColor;
         context.stroke();
-        if(this.firstContact.status != this.secondContact.status){
+        if (this.firstContact.status != this.secondContact.status) {
             context.fillStyle = this.colorOn;
-        } else{
+        } else {
             context.fillStyle = this.colorOff;
         }
         context.fill();

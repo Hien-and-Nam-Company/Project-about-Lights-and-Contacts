@@ -48,22 +48,18 @@ class Contact {
         }
     }
 
-    clicked() {
+    handleOnclick() {
         if (this.isPointed()) {
             if (this == linkTarget[0]) {
                 this.status = !this.status;
                 linkTarget[1].status = !linkTarget[1].status;
                 resetLinkTarget();
                 drawAllContacts();
-                // this.draw();
-                // linkTarget[1].draw();
             } else if (this == linkTarget[1]) {
                 this.status = !this.status;
                 linkTarget[0].status = !linkTarget[0].status;
                 resetLinkTarget();
                 drawAllContacts();
-                //this.draw();
-                //linkTarget[0].draw();
             } else {
                 this.status = !this.status;
                 this.draw();

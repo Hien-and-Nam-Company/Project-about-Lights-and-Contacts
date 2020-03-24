@@ -3,11 +3,12 @@ var context = canvas.getContext('2d');
 
 //Tạo các đối tượng công tắc (tọa độ x, tọa độ y, bật?)
 var contactList = [];
-contactList[0] = new Contact(10, 10, false);
-contactList[1] = new Contact(140, 10, true);
-contactList[2] = new Contact(10, 210, true);
-contactList[3] = new Contact(140, 265, true);
-contactList[4] = new Contact(10, 370, true);
+contactList[0] = new Contact(12, 20, 'top');
+contactList[1] = new Contact(77, 20, 'mid');
+contactList[2] = new Contact(142, 20, 'bot');
+contactList[3] = new Contact(207, 20, 'mid');
+contactList[4] = new Contact(272, 20, 'top');
+contactList[5] = new Contact(337, 20, 'bot');
 
 //Vẽ TẤT CẢ công tắc
 function drawAllContacts() {
@@ -49,7 +50,7 @@ function mousePressed() {
             contactList.forEach(function (currentContact) {
                 currentContact.onclick();
             })
-            drawAllLights();
+            //drawAllLights();
 
         } else {
             contactList.forEach(function (currentContact) {
@@ -61,5 +62,5 @@ function mousePressed() {
 
 //Vẽ TẤT CẢ đối tượng
 drawAllContacts();
-drawAllLights();
+//drawAllLights();
 mousePressed();

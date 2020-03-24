@@ -1,9 +1,9 @@
 function handleButtonOk() {
     contactList.forEach(function(currentContact) {
         if (currentContact.isTargeted) {
-            currentContact.status = !currentContact.status;
+            currentContact.shift();
             currentContact.draw();
-            drawAllLights();
+            //drawAllLights();
         }
     });
 }

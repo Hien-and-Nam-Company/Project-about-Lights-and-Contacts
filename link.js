@@ -12,7 +12,7 @@ function handleButtonLink() {
 function handleButtonUnLink() {
     resetLinkTarget();
     drawAllContacts();
-    showElement('button');
+    showElement('buttonSwitch');
 }
 
 

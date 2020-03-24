@@ -96,13 +96,13 @@ class Contact {
         }
 
         if (linkTarget[0] == null && linkTarget[1] == null) {
-            showElement('button');
+            showElement('buttonSwitch');
         } else if (linkTarget[0] == null || linkTarget[1] == null) {
-            hideElement('button');
+            hideElement('buttonSwitch');
         } else if (linkTarget[0] == linkTarget[1]) {
-            hideElement('button');
+            hideElement('buttonSwitch');
         } else {
-            showElement('button');
+            showElement('buttonSwitch');
         }
     }
 }

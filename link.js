@@ -1,4 +1,4 @@
-function myFunction() {
+function handleButtonLink() {
     isLinkFlag = !isLinkFlag;
     if (isLinkFlag) {
         showElement('buttonOK');
@@ -11,7 +11,7 @@ function myFunction() {
     }
 }
 
-function myFunctionUnlink() {
+function handleButtonLink() {
     resetLinkTarget();
     drawAllContacts();
     showElement('button');

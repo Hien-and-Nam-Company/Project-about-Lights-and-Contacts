@@ -32,8 +32,9 @@ function drawAllLights() {
 
 
 var isLinkFlag = false;
+var ableToLink = false;
 
-var targetList = [null, null];
+var targetList = new Contact();
 
 function resetLinkTarget() {
     targetList = [null, null];
@@ -48,13 +49,13 @@ function mousePressed() {
 
         if (!isLinkFlag) {
             contactList.forEach(function (currentContact) {
-                currentContact.handleOnclick();
+                currentContact.onclick();
             })
             drawAllLights();
 
         } else {
             contactList.forEach(function (currentContact) {
-                currentContact.clickedLinkTarget();
+                currentContact.onTargeted();
             })
         }
     }

@@ -1,19 +1,59 @@
 function handleButtonLink() {
-    isLinkFlag = !isLinkFlag;
-    if (isLinkFlag) {
-        showElement('buttonUnlink');
-        showElement('buttonSwitch');
-    } else {
-        hideElement('buttonUnlink');
-        hideElement('buttonSwitch');
+    ableToLink = true;
+    hideElement('buttonLink');
+    showElement('buttonTieUp');
+    showElement('buttonSwitch');
+}
+
+function handleButtonBack(){
+    ableToLink = false;
+    showElement('buttonLink');
+    hideElement('buttonTieUp');
+    hideElement('buttonSwitch');
+}
+
+function handleButtonTieUp() {
+
+}
+
+function handleButtonSwitch(){
+    if (this == targetList[0]) {
+        this.status = !this.status;
+        targetList[1].status = !targetList[1].status;
+        resetLinkTarget();
+        drawAllContacts();
+    }
+    if (this == targetList[1]) {
+        this.status = !this.status;
+        targetList[0].status = !targetList[0].status;
+        resetLinkTarget();
+        drawAllContacts();
     }
 }
 
-function handleButtonUnLink() {
-    resetLinkTarget();
-    drawAllContacts();
-    showElement('buttonSwitch');
-}
+
+// function handleButtonLink() {
+//     isLinkFlag = !isLinkFlag;
+//     if (isLinkFlag) {
+//         showElement('buttonUnlink');
+//         showElement('buttonSwitch');
+//     } else {
+//         hideElement('buttonUnlink');
+//         hideElement('buttonSwitch');
+//     }
+// }
+
+
+
+
+
+// function makeContactsLinked()
+
+// function handleButtonUnLink() {
+//     resetLinkTarget();
+//     drawAllContacts();
+//     showElement('buttonSwitch');
+// }
 
 
 // class Link {

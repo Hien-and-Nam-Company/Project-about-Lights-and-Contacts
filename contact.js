@@ -48,28 +48,27 @@ class Contact {
         }
     }
 
-    handleOnclick() {
+    onclick() {
         if (this.isPointed()) {
-            if (this == targetList[0]) {
-                this.status = !this.status;
-                targetList[1].status = !targetList[1].status;
-                resetLinkTarget();
-                drawAllContacts();
-            } else if (this == targetList[1]) {
-                this.status = !this.status;
-                targetList[0].status = !targetList[0].status;
-                resetLinkTarget();
-                drawAllContacts();
-            } else {
-                this.status = !this.status;
-                this.draw();
-            }
-
+            this.status = !this.status;
+            this.draw();
         }
     }
 
-    clickedLinkTarget() {
+    drawOnTargeted(){
+        this.strokeColor = '#0000ff';
+        this.draw();
+    }
+
+    onTargeted() {
         if (this.isPointed()) {
+            this
+
+
+
+
+
+
             if (targetList[0] == this) {
                 targetList[0] = null;
                 targetList[1] = null;
@@ -101,4 +100,38 @@ class Contact {
             showElement('buttonSwitch');
         }
     }
+
+    // onBeTargeted() {
+    //     if (this.isPointed()) {
+    //         if (targetList[0] == this) {
+    //             targetList[0] = null;
+    //             targetList[1] = null;
+    //             drawAllContacts();
+    //         }
+
+    //         targetList[0] = targetList[1];
+    //         targetList[1] = this;
+    //         this.strokeColor = '#0000ff';
+    //         this.draw();
+
+
+    //         if (targetList[0] != null) {
+    //             drawAllContacts();
+    //             targetList[0].strokeColor = '#0000ff';
+    //             targetList[0].draw();
+    //             targetList[1].strokeColor = '#0000ff';
+    //             targetList[1].draw();
+    //         }
+    //     }
+
+    //     if (targetList[0] == null && targetList[1] == null) {
+    //         showElement('buttonSwitch');
+    //     } else if (targetList[0] == null || targetList[1] == null) {
+    //         hideElement('buttonSwitch');
+    //     } else if (targetList[0] == targetList[1]) {
+    //         hideElement('buttonSwitch');
+    //     } else {
+    //         showElement('buttonSwitch');
+    //     }
+    // }
 }

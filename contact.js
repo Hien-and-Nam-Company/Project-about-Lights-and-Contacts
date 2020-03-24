@@ -5,16 +5,15 @@ class Contact {
         this.status = status;
         this.color1 = '#595959';
         this.color2 = '#ff0000';
-        this.color3 = 'yellow';
-        this.color4 = '#00cc00';
+        this.color3 = '#00cc00';
         this.strokeColor = '#000000';
         this.height = 100;
         this.width = 50;
-        this.isTargeted = false;
     }
 
     isPointed() {
-        if (mouseX >= this.x && mouseX <= this.x + this.width && mouseY >= this.y && mouseY <= this.y + this.height) {
+        if (mouseX >= this.x && mouseX <= this.x + this.width
+            && mouseY >= this.y && mouseY <= this.y + this.height) {
             return true;
         }
         return false;
@@ -30,90 +29,76 @@ class Contact {
         context.fill();
         context.closePath();
 
-        if (this.status == 'top') {
+        if (!this.status) {
             context.beginPath();
-            context.rect(this.x, this.y, this.width, this.height / 3);
+            context.rect(this.x, this.y, this.width, this.height / 2);
             context.strokeStyle = this.strokeColor;
             context.stroke();
             context.fillStyle = this.color2;
             context.fill();
             context.closePath();
-        } else if (this.status == 'mid') {
+        } else {
             context.beginPath();
-            context.rect(this.x, this.y + this.height / 3, this.width, this.height / 3);
+            context.rect(this.x, this.y + this.height / 2, this.width, this.height / 2);
             context.strokeStyle = this.strokeColor;
             context.stroke();
             context.fillStyle = this.color3;
             context.fill();
             context.closePath();
-        } else {
-            context.beginPath();
-            context.rect(this.x, this.y + 2 * (this.height / 3), this.width, this.height / 3);
-            context.strokeStyle = this.strokeColor;
-            context.stroke();
-            context.fillStyle = this.color4;
-            context.fill();
-            context.closePath();
         }
     }
 
-    drawOnTargeted() {
-        this.strokeColor = '#0000ff';
-        this.draw();
-    }
-
-    shift() {
-        if (this.status == 'top') {
-            this.status = 'mid';
-        } else if (this.status == 'mid') {
-            this.status = 'bot';
-        } else {
-            this.status = 'top';
-        }
-    }
-
-    onclick() {
+    handleOnclick() {
         if (this.isPointed()) {
-            this.isTargeted = true;
-            this.drawOnTargeted();
-            targetList.push(this);
+            if (this == linkTarget[0]) {
+                this.status = !this.status;
+                linkTarget[1].status = !linkTarget[1].status;
+                resetLinkTarget();
+                drawAllContacts();
+            } else if (this == linkTarget[1]) {
+                this.status = !this.status;
+                linkTarget[0].status = !linkTarget[0].status;
+                resetLinkTarget();
+                drawAllContacts();
+            } else {
+                this.status = !this.status;
+                this.draw();
+            }
+
+        }
+    }
+
+    clickedLinkTarget() {
+        if (this.isPointed()) {
+            if (linkTarget[0] == this) {
+                linkTarget[0] = null;
+                linkTarget[1] = null;
+                drawAllContacts();
+            }
+
+            linkTarget[0] = linkTarget[1];
+            linkTarget[1] = this;
+            this.strokeColor = '#0000ff';
+            this.draw();
+
+
+            if (linkTarget[0] != null) {
+                drawAllContacts();
+                linkTarget[0].strokeColor = '#0000ff';
+                linkTarget[0].draw();
+                linkTarget[1].strokeColor = '#0000ff';
+                linkTarget[1].draw();
+            }
+        }
+
+        if (linkTarget[0] == null && linkTarget[1] == null) {
+            showElement('buttonSwitch');
+        } else if (linkTarget[0] == null || linkTarget[1] == null) {
+            hideElement('buttonSwitch');
+        } else if (linkTarget[0] == linkTarget[1]) {
+            hideElement('buttonSwitch');
+        } else {
+            showElement('buttonSwitch');
         }
     }
 }
-
-
-
-//     onTargeted() {
-//         if (this.isPointed()) {
-//             if (targetList[0] == this) {
-//                 targetList[0] = null;
-//                 targetList[1] = null;
-//                 drawAllContacts();
-//             }
-
-//             targetList[0] = targetList[1];
-//             targetList[1] = this;
-//             this.strokeColor = '#0000ff';
-//             this.draw();
-
-
-//             if (targetList[0] != null) {
-//                 drawAllContacts();
-//                 targetList[0].strokeColor = '#0000ff';
-//                 targetList[0].draw();
-//                 this.drawOnTargeted();
-//             }
-//         }
-
-//         if (targetList[0] == null && targetList[1] == null) {
-//             showElement('buttonSwitch');
-//         } else if (targetList[0] == null || targetList[1] == null) {
-//             hideElement('buttonSwitch');
-//         } else if (targetList[0] == targetList[1]) {
-//             hideElement('buttonSwitch');
-//         } else {
-//             showElement('buttonSwitch');
-//         }
-//     }
-
-// }

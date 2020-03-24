@@ -3,33 +3,17 @@ var context = canvas.getContext('2d');
 
 //Tạo các đối tượng công tắc (tọa độ x, tọa độ y, bật?)
 var contactList = [];
-contactList[0] = new Contact(12, 20, 'top');
-contactList[1] = new Contact(77, 20, 'mid');
-contactList[2] = new Contact(142, 20, 'bot');
-contactList[3] = new Contact(207, 20, 'mid');
-contactList[4] = new Contact(272, 20, 'top');
-contactList[5] = new Contact(337, 20, 'bot');
-
-var answerList = [];
-answerList[0] = new Contact(12, 480, 'mid');
-answerList[1] = new Contact(77, 480, 'mid');
-answerList[2] = new Contact(142, 480, 'mid');
-answerList[3] = new Contact(207, 480, 'mid');
-answerList[4] = new Contact(272, 480, 'mid');
-answerList[5] = new Contact(337, 480, 'mid');
+contactList[0] = new Contact(10, 10, false);
+contactList[1] = new Contact(140, 10, true);
+contactList[2] = new Contact(10, 210, true);
+contactList[3] = new Contact(140, 265, true);
+contactList[4] = new Contact(10, 370, true);
 
 //Vẽ TẤT CẢ công tắc
 function drawAllContacts() {
     contactList.forEach(function (currentContact) {
         currentContact.strokeColor = '#000000';
         currentContact.draw();
-    })
-}
-
-function drawAnser() {
-    answerList.forEach(function (answerList) {
-        answerList.strokeColor = '#000000';
-        answerList.draw();
     })
 }
 
@@ -46,12 +30,12 @@ function drawAllLights() {
     })
 }
 
-var ableToLink = false;
-
-var targetList = [];
-
+//Tạo đối tượng Link
+var isLinkFlag = false;
+//link = new Link(250, 50, false);
+var linkTarget = [null, null];
 function resetLinkTarget() {
-    targetList = [null, null];
+    linkTarget = [null, null];
 }
 
 //Kiểm tra nhấp chuột
@@ -61,15 +45,15 @@ function mousePressed() {
         mouseX = mousePosition.offsetX;
         mouseY = mousePosition.offsetY;
 
-        if (!ableToLink) {
+        if (!isLinkFlag) {
             contactList.forEach(function (currentContact) {
-                currentContact.onclick();
+                currentContact.handleOnclick();
             })
-            //drawAllLights();
+            drawAllLights();
 
         } else {
             contactList.forEach(function (currentContact) {
-                currentContact.onTargeted();
+                currentContact.clickedLinkTarget();
             })
         }
     }
@@ -77,6 +61,5 @@ function mousePressed() {
 
 //Vẽ TẤT CẢ đối tượng
 drawAllContacts();
-drawAnser();
-//drawAllLights();
+drawAllLights();
 mousePressed();

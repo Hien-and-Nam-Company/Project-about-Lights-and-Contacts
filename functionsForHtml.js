@@ -7,7 +7,7 @@ function hideElement(Id) {
 }
 
 function getText(Id) {
-    return document.getElementById(Id).textContent;
+    return document.querySelector(Id).textContent;
 }
 
 function setText(Id, text) {

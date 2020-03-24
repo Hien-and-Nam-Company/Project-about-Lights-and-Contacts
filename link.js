@@ -3,6 +3,7 @@ function handleButtonSwitch() {
         if (currentContact.isTargeted) {
             currentContact.status = !currentContact.status;
             currentContact.draw();
+            drawAllLights();
         }
     });
 }

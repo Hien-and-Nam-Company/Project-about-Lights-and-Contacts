@@ -19,7 +19,7 @@ class Contact {
         return false;
     }
 
-    draw(strokeColor) {
+    draw() {
         context.beginPath();
         context.rect(this.x, this.y, this.width, this.height);
         context.lineWidth = 10;
@@ -47,6 +47,11 @@ class Contact {
             context.closePath();
         }
     }
+    
+    drawOnTargeted() {
+        this.strokeColor = '#0000ff';
+        this.draw();
+    }
 
     onclick() {
         if (this.isPointed()) {
@@ -54,11 +59,6 @@ class Contact {
             this.drawOnTargeted();
             targetList.push(this);
         }
-    }
-
-    drawOnTargeted() {
-        this.strokeColor = '#0000ff';
-        this.draw();
     }
 }
 

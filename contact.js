@@ -58,7 +58,7 @@ class Contact {
                 // this.draw();
                 // linkTarget[1].draw();
             } else if (this == linkTarget[1]) {
-                this.status = !this.status;              
+                this.status = !this.status;
                 linkTarget[0].status = !linkTarget[0].status;
                 resetLinkTarget();
                 drawAllContacts();
@@ -95,14 +95,14 @@ class Contact {
             }
         }
 
-        if(linkTarget[0] == null && linkTarget[1] == null){
-            document.getElementById('button').style.visibility = 'visible';
-        } else if(linkTarget[0] == null || linkTarget[1] == null){
-            document.getElementById('button').style.visibility = 'hidden';
-        } else if(linkTarget[0] == linkTarget[1]){
-            document.getElementById('button').style.visibility = 'hidden';
-        } else{
-            document.getElementById('button').style.visibility = 'visible';
+        if (linkTarget[0] == null && linkTarget[1] == null) {
+            showElement('button');
+        } else if (linkTarget[0] == null || linkTarget[1] == null) {
+            hideElement('button');
+        } else if (linkTarget[0] == linkTarget[1]) {
+            hideElement('button');
+        } else {
+            showElement('button');
         }
     }
 }

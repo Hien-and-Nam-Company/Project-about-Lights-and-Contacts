@@ -1,21 +1,21 @@
-function myFunction(){
+function myFunction() {
     isLinkFlag = !isLinkFlag;
-    if(isLinkFlag){
-        document.getElementById('button2').style.visibility = 'visible';
-    } else{
-        document.getElementById('button2').style.visibility = 'hidden';   
+    if (isLinkFlag) {
+        showElement('button2');
+    } else {
+        hideElement('button2');
     }
-    if(document.querySelector('button').textContent == "LINK"){
-        document.querySelector('button').textContent = "OK!";         
-    } else{
-        document.querySelector('button').textContent = "LINK";
+    if (getText('button') == "LINK") {
+        setText('button', "OK!");
+    } else {
+        setText('button', "LINK");
     }
 }
 
-function myFunction2(){
+function myFunction2() {
     resetLinkTarget();
     drawAllContacts();
-    document.getElementById('button').style.visibility = 'visible';
+    showElement('button');
 }
 
 

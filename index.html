@@ -44,9 +44,17 @@
 
 <body>
 	<canvas id="game" class="canvas" width="400" height="600"></canvas>
-	<button id="button" class="button" style="top:150px; left:250px;" onclick="myFunction()">LINK</button>
-	<button id="button2" class="button" style="top:250px; left:250px; visibility:hidden;"
-		onclick="myFunction2()">UNLINK</button>
+	<!-- <button id="buttonLink" class="button" style="top:530px; left:20px;"
+		onclick="handleButtonLink()">LINK</button>
+	<button id="buttonUnlink" class="button" style="top:250px; left:250px; visibility:hidden;"
+		onclick="handleButtonUnlink()">UNLINK</button>
+	<button id="buttonConfirm" class="button" style="top:150px; left:250px; visibility:hidden;"
+		onclick="handleButtonConfirm()">CONFIRM</button> -->
+
+	<button id="button" class="button" style="top:530px; left:20px; background-color:#32a8a8" onclick="myFunction()">LINK</button>
+	<button id="buttonOK" class="button" style="top:150px; left:250px; visibility:hidden;" >OK!</button>
+	<button id="buttonUnlink" class="button" style="top:250px; left:250px; visibility:hidden;" onclick="myFunctionUnlink()">UNLINK</button>
+	<button id="buttonSwitch" class="button" style="top:350px; left:250px; visibility:hidden;" >SWITCH</button>
 	<script src="functionsForHtml.js"></script>
 	<script src="contact.js"></script>
 	<script src="light.js"></script>

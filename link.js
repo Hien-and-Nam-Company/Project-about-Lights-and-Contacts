@@ -1,17 +1,15 @@
 function handleButtonLink() {
     isLinkFlag = !isLinkFlag;
     if (isLinkFlag) {
-        showElement('buttonOK');
         showElement('buttonUnlink');
         showElement('buttonSwitch');
     } else {
-        hideElement('buttonOK');
         hideElement('buttonUnlink');
         hideElement('buttonSwitch');
     }
 }
 
-function handleButtonLink() {
+function handleButtonUnLink() {
     resetLinkTarget();
     drawAllContacts();
     showElement('button');

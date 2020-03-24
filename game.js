@@ -38,6 +38,11 @@ function resetLinkTarget() {
     linkTarget = [null, null];
 }
 
+//Vẽ đối tượng Link
+function drawLinkButton() {
+    link.drawButton();
+}
+
 //Kiểm tra nhấp chuột
 var mouseX = null, mouseY = null;
 function mousePressed() {
@@ -47,7 +52,7 @@ function mousePressed() {
 
         if (!isLinkFlag) {
             contactList.forEach(function (currentContact) {
-                currentContact.handleOnclick();
+                currentContact.clicked();
             })
             drawAllLights();
 
@@ -62,4 +67,5 @@ function mousePressed() {
 //Vẽ TẤT CẢ đối tượng
 drawAllContacts();
 drawAllLights();
+
 mousePressed();

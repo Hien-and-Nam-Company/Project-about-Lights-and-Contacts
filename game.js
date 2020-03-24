@@ -30,11 +30,9 @@ function drawAllLights() {
     })
 }
 
-
-var isLinkFlag = false;
 var ableToLink = false;
 
-var targetList = new Contact();
+var targetList = [];
 
 function resetLinkTarget() {
     targetList = [null, null];
@@ -47,7 +45,7 @@ function mousePressed() {
         mouseX = mousePosition.offsetX;
         mouseY = mousePosition.offsetY;
 
-        if (!isLinkFlag) {
+        if (!ableToLink) {
             contactList.forEach(function (currentContact) {
                 currentContact.onclick();
             })

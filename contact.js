@@ -9,17 +9,17 @@ class Contact {
         this.strokeColor = '#000000';
         this.height = 100;
         this.width = 50;
+        this.isTargeted = false;
     }
 
     isPointed() {
-        if (mouseX >= this.x && mouseX <= this.x + this.width
-            && mouseY >= this.y && mouseY <= this.y + this.height) {
+        if (mouseX >= this.x && mouseX <= this.x + this.width && mouseY >= this.y && mouseY <= this.y + this.height) {
             return true;
         }
         return false;
     }
 
-    draw() {
+    draw(strokeColor) {
         context.beginPath();
         context.rect(this.x, this.y, this.width, this.height);
         context.lineWidth = 10;
@@ -50,88 +50,51 @@ class Contact {
 
     onclick() {
         if (this.isPointed()) {
-            this.status = !this.status;
-            this.draw();
+            this.isTargeted = true;
+            this.drawOnTargeted();
+            targetList.push(this);
         }
     }
 
-    drawOnTargeted(){
+    drawOnTargeted() {
         this.strokeColor = '#0000ff';
         this.draw();
     }
-
-    onTargeted() {
-        if (this.isPointed()) {
-            this
-
-
-
-
-
-
-            if (targetList[0] == this) {
-                targetList[0] = null;
-                targetList[1] = null;
-                drawAllContacts();
-            }
-
-            targetList[0] = targetList[1];
-            targetList[1] = this;
-            this.strokeColor = '#0000ff';
-            this.draw();
-
-
-            if (targetList[0] != null) {
-                drawAllContacts();
-                targetList[0].strokeColor = '#0000ff';
-                targetList[0].draw();
-                targetList[1].strokeColor = '#0000ff';
-                targetList[1].draw();
-            }
-        }
-
-        if (targetList[0] == null && targetList[1] == null) {
-            showElement('buttonSwitch');
-        } else if (targetList[0] == null || targetList[1] == null) {
-            hideElement('buttonSwitch');
-        } else if (targetList[0] == targetList[1]) {
-            hideElement('buttonSwitch');
-        } else {
-            showElement('buttonSwitch');
-        }
-    }
-
-    // onBeTargeted() {
-    //     if (this.isPointed()) {
-    //         if (targetList[0] == this) {
-    //             targetList[0] = null;
-    //             targetList[1] = null;
-    //             drawAllContacts();
-    //         }
-
-    //         targetList[0] = targetList[1];
-    //         targetList[1] = this;
-    //         this.strokeColor = '#0000ff';
-    //         this.draw();
-
-
-    //         if (targetList[0] != null) {
-    //             drawAllContacts();
-    //             targetList[0].strokeColor = '#0000ff';
-    //             targetList[0].draw();
-    //             targetList[1].strokeColor = '#0000ff';
-    //             targetList[1].draw();
-    //         }
-    //     }
-
-    //     if (targetList[0] == null && targetList[1] == null) {
-    //         showElement('buttonSwitch');
-    //     } else if (targetList[0] == null || targetList[1] == null) {
-    //         hideElement('buttonSwitch');
-    //     } else if (targetList[0] == targetList[1]) {
-    //         hideElement('buttonSwitch');
-    //     } else {
-    //         showElement('buttonSwitch');
-    //     }
-    // }
 }
+
+
+
+//     onTargeted() {
+//         if (this.isPointed()) {
+//             if (targetList[0] == this) {
+//                 targetList[0] = null;
+//                 targetList[1] = null;
+//                 drawAllContacts();
+//             }
+
+//             targetList[0] = targetList[1];
+//             targetList[1] = this;
+//             this.strokeColor = '#0000ff';
+//             this.draw();
+
+
+//             if (targetList[0] != null) {
+//                 drawAllContacts();
+//                 targetList[0].strokeColor = '#0000ff';
+//                 targetList[0].draw();
+//                 this.drawOnTargeted();
+//             }
+//         }
+
+//         if (targetList[0] == null && targetList[1] == null) {
+//             showElement('buttonSwitch');
+//         } else if (targetList[0] == null || targetList[1] == null) {
+//             hideElement('buttonSwitch');
+//         } else if (targetList[0] == targetList[1]) {
+//             hideElement('buttonSwitch');
+//         } else {
+//             showElement('buttonSwitch');
+//         }
+//     }
+
+// }

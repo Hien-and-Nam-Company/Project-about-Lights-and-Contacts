@@ -50,13 +50,13 @@ function handleButtonUnLink() {
 
 //         // Draw the text
 //         context.beginPath();
-//         context.font = "30px Comic Sans MS";
+//         context.font = '30px Comic Sans MS';
 //         if (!this.isSelected) {
 //             context.fillStyle = 'black';
-//             context.fillText("LINK", this.x + 12, this.y + 35);
+//             context.fillText('LINK', this.x + 12, this.y + 35);
 //         } else {
 //             context.fillStyle = 'white';
-//             context.fillText("OK!", this.x + 22, this.y + 35);
+//             context.fillText('OK!', this.x + 22, this.y + 35);
 //         }
 //         context.closePath();
 //     }

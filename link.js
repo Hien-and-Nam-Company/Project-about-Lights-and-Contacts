@@ -69,9 +69,9 @@ function handleButtonUnLink() {
 
 //             //Trường hợp người chơi chỉ chọn 1 Target --> không thực hiện Link
 //             if (!isLinkFlag) {
-//                 if (linkTarget[0] == null || linkTarget[1] == null) {
-//                     linkTarget[0] = null;
-//                     linkTarget[1] = null;
+//                 if (targetList[0] == null || targetList[1] == null) {
+//                     targetList[0] = null;
+//                     targetList[1] = null;
 //                     drawContacts();
 //                 }
 //             }

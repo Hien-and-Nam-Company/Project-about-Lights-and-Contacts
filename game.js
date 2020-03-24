@@ -30,12 +30,13 @@ function drawAllLights() {
     })
 }
 
-//Tạo đối tượng Link
+
 var isLinkFlag = false;
-//link = new Link(250, 50, false);
-var linkTarget = [null, null];
+
+var targetList = [null, null];
+
 function resetLinkTarget() {
-    linkTarget = [null, null];
+    targetList = [null, null];
 }
 
 //Kiểm tra nhấp chuột

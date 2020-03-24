@@ -50,14 +50,14 @@ class Contact {
 
     handleOnclick() {
         if (this.isPointed()) {
-            if (this == linkTarget[0]) {
+            if (this == targetList[0]) {
                 this.status = !this.status;
-                linkTarget[1].status = !linkTarget[1].status;
+                targetList[1].status = !targetList[1].status;
                 resetLinkTarget();
                 drawAllContacts();
-            } else if (this == linkTarget[1]) {
+            } else if (this == targetList[1]) {
                 this.status = !this.status;
-                linkTarget[0].status = !linkTarget[0].status;
+                targetList[0].status = !targetList[0].status;
                 resetLinkTarget();
                 drawAllContacts();
             } else {
@@ -70,32 +70,32 @@ class Contact {
 
     clickedLinkTarget() {
         if (this.isPointed()) {
-            if (linkTarget[0] == this) {
-                linkTarget[0] = null;
-                linkTarget[1] = null;
+            if (targetList[0] == this) {
+                targetList[0] = null;
+                targetList[1] = null;
                 drawAllContacts();
             }
 
-            linkTarget[0] = linkTarget[1];
-            linkTarget[1] = this;
+            targetList[0] = targetList[1];
+            targetList[1] = this;
             this.strokeColor = '#0000ff';
             this.draw();
 
 
-            if (linkTarget[0] != null) {
+            if (targetList[0] != null) {
                 drawAllContacts();
-                linkTarget[0].strokeColor = '#0000ff';
-                linkTarget[0].draw();
-                linkTarget[1].strokeColor = '#0000ff';
-                linkTarget[1].draw();
+                targetList[0].strokeColor = '#0000ff';
+                targetList[0].draw();
+                targetList[1].strokeColor = '#0000ff';
+                targetList[1].draw();
             }
         }
 
-        if (linkTarget[0] == null && linkTarget[1] == null) {
+        if (targetList[0] == null && targetList[1] == null) {
             showElement('buttonSwitch');
-        } else if (linkTarget[0] == null || linkTarget[1] == null) {
+        } else if (targetList[0] == null || targetList[1] == null) {
             hideElement('buttonSwitch');
-        } else if (linkTarget[0] == linkTarget[1]) {
+        } else if (targetList[0] == targetList[1]) {
             hideElement('buttonSwitch');
         } else {
             showElement('buttonSwitch');

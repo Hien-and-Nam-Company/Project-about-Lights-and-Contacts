@@ -1,4 +1,4 @@
-function handleButtonSwitch() {
+function handleButtonOk() {
     contactList.forEach(function(currentContact) {
         if (currentContact.isTargeted) {
             currentContact.status = !currentContact.status;
@@ -7,6 +7,11 @@ function handleButtonSwitch() {
         }
     });
 }
+
+// function handleButtonUnLink() {
+//     resetLinkTarget();
+//     drawAllContacts();
+// }
 
 // function handleButtonLink() {
 //     ableToLink = true;
